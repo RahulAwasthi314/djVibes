@@ -1,0 +1,51 @@
+<div class="visualizer-container">
+    <canvas #canvas></canvas>
+
+    <div class="controls-overlay">
+        <h1 class="title">DjBeats <span class="subtitle">Analyzer</span></h1>
+
+        @if (audioService.currentFile() && !audioService.isLoading()) {
+        <div class="track-info">
+            <span class="playing-label">Now Playing:</span> {{ audioService.currentFile() }}
+        </div>
+        }
+        @if (!audioService.currentFile() && !audioService.isLoading()) {
+        <div class="track-info placeholder">
+            Select a track to begin visualization
+        </div>
+        }
+        @if (audioService.isLoading()) {
+        <div class="track-info loading">
+            <span>Loading...</span>
+        </div>
+        }
+
+        <div class="controls-row">
+            <label class="btn-neon file-btn">
+                <i class="icon">📂</i> Select Music
+                <input type="file" (change)="onFileSelected($event)" accept="audio/*" hidden>
+            </label>
+
+            <button class="btn-neon play-btn" (click)="togglePlay()" [disabled]="!audioService.currentFile()">
+                @if(!audioService.isPlaying()) {
+                <span>▶ Play</span>
+                }
+                @if(audioService.isPlaying()) {
+                <span>⏸ Pause</span>
+                }
+            </button>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <span class="dot freq"></span> Frequency
+            </div>
+            <div class="legend-item">
+                <span class="dot amp"></span> Amplitude
+            </div>
+            <div class="legend-item">
+                <span class="dot phase"></span> Phase (Polar)
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Outfit:wght@300;500&display=swap');
+
+:host {
+    display: block;
+    width: 100%;
+    height: 100vh;
+}
+
+.visualizer-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #050510;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.controls-overlay {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: rgba(15, 15, 25, 0.4);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    padding: 30px 50px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    color: white;
+    min-width: 400px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(15, 15, 25, 0.6);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    background: linear-gradient(to right, #00ffcc, #00bfff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+
+    .subtitle {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+        letter-spacing: 2px;
+        -webkit-text-fill-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.track-info {
+    font-size: 1rem;
+    color: #e0e0e0;
+    text-align: center;
+    max-width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+
+    &.placeholder {
+        color: rgba(255, 255, 255, 0.3);
+        font-style: italic;
+    }
+
+    &.loading {
+        color: #ff00bf;
+        opacity: 0.8;
+        animation: pulse 1.5s infinite;
+    }
+
+    .playing-label {
+        color: #00ffcc;
+        font-weight: 500;
+        margin-right: 8px;
+    }
+}
+
+.controls-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-neon {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        filter: grayscale(1);
+    }
+
+    &.play-btn {
+        background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(0, 191, 255, 0.2));
+        border-color: rgba(0, 255, 204, 0.3);
+
+        &:hover:not(:disabled) {
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+    }
+}
+
+.legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 10px;
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px currentColor;
+
+            &.freq {
+                background-color: #00bfff;
+                color: #00bfff;
+            }
+
+            // Cyan/Blue
+            &.amp {
+                background-color: #00ffcc;
+                color: #00ffcc;
+            }
+
+            // Cyan/Green
+            &.phase {
+                background-color: #ff00bf;
+                color: #ff00bf;
+            }
+
+            // Magenta
+        }
+    }
+}@keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
